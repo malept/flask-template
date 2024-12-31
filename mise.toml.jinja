@@ -1,0 +1,35 @@
+[tools]
+
+[tasks.check]
+description = "Run checks on the repository"
+depends = ["mypy", "check-fmt", "check-editorconfig", "lint"]
+
+[tasks.check-editorconfig]
+description = "Ensure that files conform to EditorConfig rules"
+run = "ec -exclude LICENSE"
+
+[tasks.check-fmt]
+description = "Check if source files need to be reformatted"
+run = "dprint check"
+
+[tasks.dev]
+description = "Run a development server"
+depends = ["check"]
+sources = ["**/*.py"]
+run = "uv run flask --app app run"
+
+[tasks.fmt]
+description = "Reformat source files"
+run = "dprint fmt"
+
+[tasks.lint]
+description = "Check source files with linter"
+run = "ruff check"
+
+[tasks.lint-fix]
+description = "Fix fixable lints"
+run = "ruff check --fix"
+
+[tasks.mypy]
+description = "Check Python types"
+run = "uv run mypy --strict app.py"

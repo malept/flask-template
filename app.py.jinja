@@ -1,0 +1,25 @@
+"""Flask app entrypoint."""
+
+import pathlib
+
+import mistune
+from flask import Flask, make_response
+from flask.typing import ResponseReturnValue
+
+app = Flask(__name__)
+thisfile = pathlib.Path(__file__)
+
+
+@app.get("/about")
+def about() -> ResponseReturnValue:
+    """Show the README."""
+    markdown = mistune.create_markdown(plugins=["task_lists"])
+    return str(markdown(thisfile.parent.joinpath("README.md").read_text()))
+
+
+@app.get("/license")
+def show_license() -> ResponseReturnValue:
+    """Show the software license."""
+    resp = make_response(thisfile.parent.joinpath("LICENSE").read_text())
+    resp.content_type = "text/plain"
+    return resp

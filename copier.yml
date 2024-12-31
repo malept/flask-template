@@ -1,0 +1,26 @@
+app_name:
+  type: str
+  help: What is the name of the web application?
+
+description:
+  type: str
+  help: Briefly describe your app.
+
+use_adrs:
+  type: bool
+  help: Publicly document design decisions?
+
+_exclude:
+  - .git
+  - _copier_tasks
+  - copier.yml
+
+_tasks:
+  - [mise, use, dprint, "editorconfig-checker", ruff, uv]
+  - command: [mise, use, "cargo:adrs"]
+    when: "{{ use_adrs }}"
+  - command: [uv, init, "--vcs", git, "--author-from", auto, "--name", "{{ app_name }}"] # "--description", "{{ description }}"
+    when: "{{ [_copier_conf.dst_path, 'pyproject.toml'] | join(_copier_conf.sep) | fileglob | length == 0 }}"
+  - [uv, add, Flask, mistune]
+  - [uv, add, "--dev", "--extra", "faster-cache", "mypy"]
+  - ["{{ _copier_python }}", "{{ _copier_conf.src_path }}{{ _copier_conf.sep }}_copier_tasks{{ _copier_conf.sep }}augment_project.py"]
