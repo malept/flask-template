@@ -1,0 +1,34 @@
+[tools]
+"uv" = "latest"
+"dprint" = "latest"
+"editorconfig-checker" = "latest"
+"pipx:copier" = "latest"
+"ruff" = "latest"
+
+[tasks.check]
+description = "Run checks on the repository"
+depends = ["check-fmt", "check-editorconfig", "lint"]
+
+[tasks.check-editorconfig]
+description = "Ensure that files conform to EditorConfig rules"
+run = "ec -exclude LICENSE"
+
+[tasks.check-fmt]
+description = "Check if source files need to be reformatted"
+run = "dprint check"
+
+[tasks.e2e-test]
+description = "Run copier on a temporary directory"
+run = "./_tasks/e2e.sh"
+
+[tasks.fmt]
+description = "Reformat source files"
+run = "dprint fmt"
+
+[tasks.lint]
+description = "Check source files with linter"
+run = "ruff check"
+
+[tasks.lint-fix]
+description = "Fix fixable lints"
+run = "ruff check --fix"

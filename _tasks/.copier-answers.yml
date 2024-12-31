@@ -1,0 +1,4 @@
+# Changes here will be overwritten by Copier
+app_name: testapp
+description: Some description
+use_adrs: true

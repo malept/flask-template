@@ -1,0 +1,5 @@
+{
+  "plugins": [
+    "https://plugins.dprint.dev/json-0.19.4.wasm"
+  ]
+}
