@@ -1,7 +1,7 @@
 # Flask template for Copier
 
 Template to automatically create Flask apps using `uv` and `ruff`
-(plus some other linting).
+(plus some other linting tools).
 
 ## Installation
 
