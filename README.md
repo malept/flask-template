@@ -5,17 +5,23 @@ Template to automatically create Flask apps using `uv` and `ruff`
 
 ## Installation
 
-Requires [`copier`](https://copier.readthedocs.io/).
+Requires [`copier`](https://copier.readthedocs.io/) and [`mise`](https://mise.jdx.dev).
+
+Install `mise` via [their docs](https://mise.jdx.dev/getting-started.html).
 
 ```shell
-pipx install copier
+mise use --global pipx:copier
 ```
 
 ## Usage
 
 ```shell
-copier copy https://github.com/malept/flask-template /path/to/new/local/repo
+copier copy --trust https://github.com/malept/flask-template /path/to/new/local/repo
 ```
+
+The `--trust` flag is required because the copier tasks do all of the
+heavy lifting. Look at the `_tasks` list and audit all of the commands
+that are run.
 
 ## License
 
