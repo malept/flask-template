@@ -17,6 +17,6 @@ jobs:
       - name: Install mise
         uses: jdx/mise-action@v2
       - name: lint
-        run: mise run check
+        run: mise run lint
       - name: E2E test
         run: mise run e2e-test

@@ -1,35 +1,58 @@
 [tools]
 
-[tasks.check]
-description = "Run checks on the repository"
-depends = ["mypy", "check-fmt", "check-editorconfig", "lint"]
-
-[tasks.check-editorconfig]
-description = "Ensure that files conform to EditorConfig rules"
-run = "ec -exclude LICENSE"
-
-[tasks.check-fmt]
-description = "Check if source files need to be reformatted"
-run = "dprint check"
-
 [tasks.dev]
 description = "Run a development server"
-depends = ["check"]
+depends = ["lint"]
 sources = ["**/*.py"]
 run = "uv run flask --app app run"
 
-[tasks.fmt]
-description = "Reformat source files"
-run = "dprint fmt"
-
-[tasks.lint]
-description = "Check source files with linter"
-run = "ruff check"
-
-[tasks.lint-fix]
+[tasks."fix:ruff"]
 description = "Fix fixable lints"
 run = "ruff check --fix"
 
-[tasks.mypy]
+[tasks.fmt]
+description = "Reformat / auto-lintfix source files"
+depends = ["fmt:*", "fix:*"]
+
+[tasks."fmt:dprint"]
+description = "Reformat source files via dprint"
+run = "dprint fmt"
+
+[tasks."fmt:ruff"]
+description = "Reformat Python source files via ruff"
+run = "ruff format"
+
+[tasks.lint]
+description = "Check source files with linters"
+depends = ["lint:*"]
+
+[tasks."lint:dprint"]
+description = "Check if source files need to be reformatted"
+run = "dprint check"
+
+[tasks."lint:editorconfig"]
+tools.editorconfig-checker = "latest"
+description = "Ensure that files conform to EditorConfig rules"
+run = "ec -exclude LICENSE"
+
+[tasks."lint:ruff"]
+description = "Check source files with linter"
+run = "ruff check"
+
+[tasks."lint:ruff-format"]
+description = "Check that Python source files are formatted by Ruff"
+run = "ruff format --diff"
+
+[tasks."lint:mypy"]
 description = "Check Python types"
 run = "uv run mypy --strict app.py"
+
+[tasks."lint:taplo"]
+tools.taplo = "latest"
+description = "Lints TOML files with Taplo"
+run = "taplo lint"
+
+[tasks."lint:taplo-format"]
+tools.taplo = "latest"
+description = "Checks if TOML files are formatted correctly"
+run = "taplo format --check --diff"
