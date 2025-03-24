@@ -18,6 +18,10 @@ depends = ["fmt:*", "fix:*"]
 description = "Reformat source files via dprint"
 run = "dprint fmt"
 
+[tasks."fmt:mise"]
+description = "Reformat mise.toml with mise"
+run = "mise fmt"
+
 [tasks."fmt:ruff"]
 description = "Reformat Python source files via ruff"
 run = "ruff format"
