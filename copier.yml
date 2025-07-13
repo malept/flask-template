@@ -15,7 +15,6 @@ _exclude:
   - .github
   - _tasks
   - copier.yml
-  - mise.toml
   - README.md
 
 _tasks:
@@ -34,3 +33,4 @@ _tasks:
   - [uv, add, Flask, mistune]
   - [uv, add, "--dev", "--extra", "faster-cache", "mypy"]
   - ["{{ _copier_python }}", "{{ _copier_conf.src_path }}{{ _copier_conf.sep }}_tasks{{ _copier_conf.sep }}augment_project.py"]
+  - [mise, run, fmt]
