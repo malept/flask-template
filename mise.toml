@@ -29,6 +29,23 @@ run = "mise fmt"
 description = "Reformat Python source files via ruff"
 run = "ruff format"
 
+[tasks."fmt:shfmt"]
+tools.shfmt = "latest"
+description = "Reformat shell files via shfmt"
+sources = ["**/*.sh"]
+outputs = { auto = true }
+run = """
+{%- set_global quoted_files = [] %}
+{%- for file in task_source_files() %}
+{%- set quoted = file | quote %}
+{%- set_global quoted_files = quoted_files | concat(with=quoted) %}
+{%- endfor %}
+echo "Processing: {{ quoted_files }}"
+{%- if quoted_files %}
+shfmt --write {{ quoted_files | join(sep=" ") }}
+{%- endif %}
+"""
+
 [tasks.lint]
 description = "Check source files with linters"
 depends = ["lint:*"]

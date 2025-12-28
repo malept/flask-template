@@ -28,6 +28,6 @@ echo "E2E: Running copier to destination '$tempRepo'"
 copier recopy --skip-answered --trust "$tempRepo"
 
 readmeLength="$(wc -c "$tempRepo"/README.md | awk '{print $1}')"
-if [[ "$readmeLength" != 0 ]]; then
+if [[ $readmeLength != 0 ]]; then
   fail "Expected empty README.md from 'uv init', got $readmeLength characters"
 fi
