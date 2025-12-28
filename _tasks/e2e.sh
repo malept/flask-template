@@ -9,7 +9,7 @@ ANSWERS_FILE=.copier-answers.yml
 fail() {
   local message="$1"
 
-  echo "$message" >&2
+  echo "ERROR: $message" >&2
   exit 1
 }
 
