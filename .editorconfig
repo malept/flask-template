@@ -1,7 +1,6 @@
 root = true
 
 [*]
-
 charset = utf-8
 end_of_line = lf
 indent_size = 2
@@ -11,9 +10,10 @@ spelling_language = en-US
 trim_trailing_whitespace = true
 
 [*.md]
-
 max_line_length = 100
 
 [*.py]
-
 indent_size = 4
+
+[[shell]]
+simplify = true
