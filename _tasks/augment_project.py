@@ -14,7 +14,7 @@ def ensure_ruff_config():
         if "[tool.ruff.lint]" not in f.read():
             f.writelines(
                 [
-                    "\n" "[tool.ruff.lint]\n",
+                    "\n[tool.ruff.lint]\n",
                     'select = ["ALL"]\n',
                 ]
             )
